@@ -54,13 +54,10 @@ all:	$(PDFS) $(HTML) $(TEX)
 pdf:	clean $(PDFS)
 html:	clean $(HTML)
 tex:	clean $(TEX)
-ifdef BIB
-	@echo Using bibliography file $(BIB) with style $(CSL).csl
-endif
 
 %.html:	%.md
-#@echo Generating HTML output
-	pandoc \
+	@echo Generating HTML output
+	@pandoc \
 		-r markdown+simple_tables+table_captions+yaml_metadata_block \
 		-w html \
 		-S \
@@ -69,8 +66,8 @@ endif
 		-o $@ $<
 
 %.tex:	%.md
-#@echo Converting from Markdown to LaTeX
-	pandoc \
+	@echo Converting from Markdown to LaTeX
+	@pandoc \
 		-r markdown+simple_tables+table_captions+yaml_metadata_block \
 		-w latex \
 		-s -S \
@@ -80,8 +77,8 @@ endif
 		-o $@ $<
 
 %.pdf:	%.md
-#@echo Generating PDF from LaTeX (via $(LATEX_ENGINE))
-	pandoc \
+	@echo Generating PDF directly from Markdown 
+	@pandoc \
 		-r markdown+simple_tables+table_captions+yaml_metadata_block \
 		-s -S \
 		--latex-engine=$(LATEX_ENGINE) \
@@ -90,5 +87,5 @@ endif
 		-o $@ $<
 
 clean:
-#	latexmk -CA
+	@echo Cleaning files...
 	rm -f *.html *.pdf *.tex
