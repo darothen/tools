@@ -11,12 +11,8 @@ header-includes:
 
 ## How To Use
 
-1. Copy this markdown file with a descriptive name, i.e. `my_doc.md`
+You can use any general Markdown file. This package just pre-defines a `Makefile` and some customizable templates which you can hack to simplify the process of generating pretty articles from your Markdown file.
 
-2. In `my_doc.md`, modify the YAML headers to include a title, author name, additional latex includes, etc.
+## Credits
 
-3. Modify the `latex.template` file to setup any specific document features. Future commits may include additional sample templates.
-
-4. Modify `Makefile` with references to `my_doc.md`
-
-5. Once you have written the body of your text, you can compile a PDF using xelatex by executing the `Makefile`.
+Basic templates and styling is modified from [Kieran Healy](https://github.com/kjhealy/pandoc-templates).
