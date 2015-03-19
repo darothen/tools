@@ -44,11 +44,16 @@ $endif$
 
 <h1 class="title">$title$</h1>
 
-
-$for(author)$
-<h2 class="author">$author.name$</h2>
-<p class="affilation"><em>$author.affiliation$</em></p>
+<p class="author">
+$for(authors)$
+$authors.name$<sup>$authors.affiliation$</sup>$sep$,  
 $endfor$
+</p>
+
+$for(affiliations)$
+<p class="affilation"><sup>$affiliations.id$</sup><em>$affiliations.address$</em></p>
+$endfor$
+
 
 </header>
 $endif$

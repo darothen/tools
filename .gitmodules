@@ -1,0 +1,3 @@
+[submodule "pandoc/csl"]
+	path = pandoc/csl
+	url = git://github.com/citation-style-language/styles.git

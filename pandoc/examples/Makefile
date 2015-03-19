@@ -1,45 +1,63 @@
-
+##
 ## This Makefile is based on the one developed by Kieran Healy
 ## (https://github.com/kjhealy/pandoc-templates/blob/master/examples/Makefile)
 ## for expediting generation of HTML, LaTeX, and PDF output of articles.
+##
 ## Be sure to edit, below -
 ## 	  1) whether to use a bib, and the path to the bibliography and CSL file
 ##    2) the path to the latex template you wish to use
+##
+## This script will generate a special latex file processed with pandoc-citeproc
+## for conversion to docx; else, it'll use natbib to preserve all the citation
+## data
+##
+## Author: Daniel Rothenberg
+## Version: March 19, 2015
 
 ## Location of Pandoc support files.
 PREFIX = /Users/daniel/tools/pandoc
 
 ## LaTeX template to use
-LATEX_TEMPLATE = xelatex_simple.template
+LATEX_TEMPLATE = schwilk-ms.latex
 
 ## LaTeX engine (be sure to match it with TEMPLATE)
-LATEX_ENGINE = xelatex
+LATEX_ENGINE = pdflatex
  
 ## Markdown extension (e.g. md, markdown, mdown)
 MEXT = md
 
 ## Location of your working bibliography file
 #BIB =
-BIB = "/Users/daniel/Documents/General Exam.bib"
+#BIB = "/Users/daniel/Documents/General Exam.bib"
+BIB = example.bib
 
 ## CSL stylesheet (located in the csl folder of the PREFIX directory).
-CSL = ams
+CSL = american-meteorological-society.csl
 
 ## Template for HTML output
-HTML_TEMPLATE = html_kjh.template
+HTML_TEMPLATE = healy-ms.html
 
 ## CSS for HTML output (as of now, paper/kultiad/kultiad-serif)
 CSS = kultiad
 
-#######################################
+###############################################################################
 
 ## Enable the bibliography options (citeproc) if a bibliography file was
 ## specified
 ifndef BIB
-	BIB_OPTS = 
+	BIB_OPTS_PANDOC =
+	BIB_OPTS_NATBIB = 
 else
-	BIB_OPTS = --filter pandoc-citeproc --csl=$(CSL).csl --bibliography=$(BIB)
+	BIB_OPTS_PANDOC = --filter pandoc-citeproc --csl=$(PREFIX)/csl/$(CSL) --bibliography=$(BIB)
+	BIB_OPTS_NATBIB = --natbib --csl=$(PREFIX)/csl/$(CSL) --bibliography=$(BIB)
 endif 
+
+## Choose PDF options for latexmk
+ifeq (LATEX_ENGINE, xelatex)
+	PDF_OPTS = -xelatex
+else
+	PDF_OPTS = 
+endif
 
 ## All markdown files in the working directory
 SRC = $(wildcard *.$(MEXT))
@@ -47,6 +65,8 @@ SRC = $(wildcard *.$(MEXT))
 PDFS=$(SRC:.md=.pdf)
 HTML=$(SRC:.md=.html)
 TEX=$(SRC:.md=.tex)
+DOCX=$(SRC:.md=.docx)
+TEX_DOCX=$(SRC:.md=.tex_docx)
 
 .PHONY: clean
 
@@ -55,37 +75,46 @@ pdf:	clean $(PDFS)
 html:	clean $(HTML)
 tex:	clean $(TEX)
 
+docx:   clean $(TEX_DOCX) $(DOCX) 
+
+ifdef BIB
+	@echo Using bibliography file $(BIB) with style $(CSL)
+endif
+
 %.html:	%.md
-	@echo Generating HTML output
-	@pandoc \
+	pandoc \
 		-r markdown+simple_tables+table_captions+yaml_metadata_block \
 		-w html \
 		-S \
-		--template=$(PREFIX)/templates/$(HTML_TEMPLATE) --css=$(PREFIX)/templates/$(CSS).css \
-		$(BIB_OPTS) \
+		--template=$(PREFIX)/templates/$(HTML_TEMPLATE) \
+		--css=$(PREFIX)/css/$(CSS) \
+		$(BIB_OPTS_PANDOC) \
+		-o $@ $<
+
+%.docx: %.tex_docx
+	pandoc \
+		-w docx -f latex -S -o $@ $<
+
+%.tex_docx:	%.md
+	pandoc \		-r markdown+simple_tables+table_captions+yaml_metadata_block \
+		-w latex \
+		-s -S \
+		--template=$(PREFIX)/templates/$(LATEX_TEMPLATE) \
+		$(BIB_OPTS_PANDOC) \
 		-o $@ $<
 
 %.tex:	%.md
-	@echo Converting from Markdown to LaTeX
-	@pandoc \
+	pandoc \
 		-r markdown+simple_tables+table_captions+yaml_metadata_block \
 		-w latex \
 		-s -S \
-		--latex-engine=$(LATEX_ENGINE) \
 		--template=$(PREFIX)/templates/$(LATEX_TEMPLATE) \
-		$(BIB_OPTS) \
+		$(BIB_OPTS_NATBIB) \
 		-o $@ $<
 
-%.pdf:	%.md
-	@echo Generating PDF directly from Markdown 
-	@pandoc \
-		-r markdown+simple_tables+table_captions+yaml_metadata_block \
-		-s -S \
-		--latex-engine=$(LATEX_ENGINE) \
-		--template=$(PREFIX)/templates/$(LATEX_TEMPLATE) \
-		$(BIB_OPTS) \
-		-o $@ $<
+%.pdf:	%.tex
+	latexmk -pdf $(PDF_OPTS) $<
+	latexmk -c
 
 clean:
-	@echo Cleaning files...
-	rm -f *.html *.pdf *.tex
+	rm -f *.html *.pdf *.tex *.docx *.tex_docx *.fls
