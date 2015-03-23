@@ -18,27 +18,30 @@
 PREFIX = /Users/daniel/tools/pandoc
 
 ## LaTeX template to use
-LATEX_TEMPLATE = schwilk-ms.latex
+LATEX_TEMPLATE = schwilk-ms-draft.latex
 
 ## LaTeX engine (be sure to match it with TEMPLATE)
 LATEX_ENGINE = pdflatex
- 
+
 ## Markdown extension (e.g. md, markdown, mdown)
 MEXT = md
 
+## Markdown format (for pandoc; e.g. markdown, markdown_strict, markdown_mmd, etc)
+MD_FLAVOR = markdown
+
 ## Location of your working bibliography file
 #BIB =
-#BIB = "/Users/daniel/Documents/General Exam.bib"
+#BIB = /Users/daniel/Desktop/mendeley_bib.bib
 BIB = example.bib
 
 ## CSL stylesheet (located in the csl folder of the PREFIX directory).
-CSL = american-meteorological-society.csl
+CSL = american-geophysical-union.csl
 
 ## Template for HTML output
 HTML_TEMPLATE = healy-ms.html
 
 ## CSS for HTML output (as of now, paper/kultiad/kultiad-serif)
-CSS = kultiad
+CSS = kultiad.css
 
 ###############################################################################
 
@@ -62,11 +65,11 @@ endif
 ## All markdown files in the working directory
 SRC = $(wildcard *.$(MEXT))
 
-PDFS=$(SRC:.md=.pdf)
-HTML=$(SRC:.md=.html)
-TEX=$(SRC:.md=.tex)
-DOCX=$(SRC:.md=.docx)
-TEX_DOCX=$(SRC:.md=.tex_docx)
+PDFS=$(SRC:.$(MEXT)=.pdf)
+HTML=$(SRC:.$(MEXT)=.html)
+TEX=$(SRC:.$(MEXT)=.tex)
+DOCX=$(SRC:.$(MEXT)=.docx)
+TEX_DOCX=$(SRC:.$(MEXT)=.tex_docx)
 
 .PHONY: clean
 
@@ -81,9 +84,9 @@ ifdef BIB
 	@echo Using bibliography file $(BIB) with style $(CSL)
 endif
 
-%.html:	%.md
+%.html:	%.$(MEXT)
 	pandoc \
-		-r markdown+simple_tables+table_captions+yaml_metadata_block \
+		-r $(MD_FLAVOR)+simple_tables+table_captions+yaml_metadata_block \
 		-w html \
 		-S \
 		--template=$(PREFIX)/templates/$(HTML_TEMPLATE) \
@@ -95,17 +98,18 @@ endif
 	pandoc \
 		-w docx -f latex -S -o $@ $<
 
-%.tex_docx:	%.md
-	pandoc \		-r markdown+simple_tables+table_captions+yaml_metadata_block \
+%.tex_docx:	%.$(MEXT)
+	pandoc \
+		-r $(MD_FLAVOR)+simple_tables+table_captions+yaml_metadata_block \
 		-w latex \
 		-s -S \
 		--template=$(PREFIX)/templates/$(LATEX_TEMPLATE) \
 		$(BIB_OPTS_PANDOC) \
 		-o $@ $<
 
-%.tex:	%.md
+%.tex:	%.$(MEXT)
 	pandoc \
-		-r markdown+simple_tables+table_captions+yaml_metadata_block \
+		-r $(MD_FLAVOR)+simple_tables+table_captions+yaml_metadata_block \
 		-w latex \
 		-s -S \
 		--template=$(PREFIX)/templates/$(LATEX_TEMPLATE) \
