@@ -1,0 +1,58 @@
+\documentclass[9pt,pdf,mathserif]{beamer}
+%\documentclass[9pt,pdf]{beamer}
+\usetheme{CambridgeUS}
+\usecolortheme{beaver}
+\mode<presentation>{}
+
+\usepackage{textpos}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{sidecap}
+
+\title[AMS Annual Meeting, 2015]{Evaluating Advanced Aerosol Activation Treatments\\ in a Coupled Climate/Mixing-State Resolving Aerosol Model }
+\author[Rothenberg/Wang/Avramov]{\textbf{Daniel Rothenberg}, Chien Wang, and Alexander Avramov}
+\institute[MIT]{Massachusetts Institute of Technology\\
+Department of Earth, Atmospheric, and Planetary Sciences\\
+Program in Atmospheres, Oceans, and Climate}
+\titlegraphic{
+	\begin{center} 
+	\includegraphics[height=1cm]{logos/mit_logo.pdf}\hspace*{1cm}
+	\includegraphics[height=1cm]{logos/eaps_logo.pdf}\hspace*{1cm}
+	\includegraphics[height=1cm]{logos/paoc_logo.eps}\hspace*{1cm}
+	\includegraphics[height=1.5cm]{logos/nsf_logo.pdf}\hspace*{1cm}
+	\end{center}
+}
+\date{January 6, 2015}
+
+% Add a PAOC logo to the upper right of each frame title.\underline{}
+\addtobeamertemplate{frametitle}{}{%
+\begin{textblock*}{100mm}(.8\textwidth,-0.9cm)
+\includegraphics[height=0.9cm]{logos/paoc_logo.eps}
+\end{textblock*}}
+
+% Settings for avoiding counting backup slides
+\newcommand{\backupbegin}{
+   \newcounter{finalframe}
+   \setcounter{finalframe}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \setcounter{framenumber}{\value{finalframe}}
+}
+
+\begin{document}
+% % Title Page
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % 6% % % % % %
+\appendix
+
+\backupbegin
+
+\backupend
+
+\end{document}

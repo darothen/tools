@@ -1,0 +1,254 @@
+\documentclass[9pt,pdf,mathserif]{beamer}
+%\documentclass[9pt,pdf]{beamer}
+\usetheme{CambridgeUS}
+\usecolortheme{beaver}
+\mode<presentation>{}
+
+\usepackage{textpos}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{tikz}
+
+\title[AMS Annual Meeting, 2015]{Evaluating Advanced Aerosol Activation Treatments\\ in a Coupled Climate/Mixing-State Resolving Aerosol Model }
+\author[Rothenberg/Wang/Avramov]{Daniel Rothenberg, Chien Wang, and Alexander Avramov}
+\institute[MIT]{Massachusetts Institute of Technology\\
+Department of Earth, Atmospheric, and Planetary Sciences\\
+Program in Atmospheres, Oceans, and Climate}
+\titlegraphic{
+	\begin{center} 
+	\includegraphics[height=1cm]{logos/mit_logo.pdf}\hspace*{1cm}
+	\includegraphics[height=1cm]{logos/eaps_logo.pdf}\hspace*{1cm}
+	\includegraphics[height=1cm]{logos/paoc_logo.pdf}\hspace*{1cm}
+	\includegraphics[height=1.5cm]{logos/nsf_logo.eps}\hspace*{1cm}
+	\end{center}
+}
+\date{December 11, 2013}
+
+% Add a PAOC logo to the upper right of each frame title.\underline{}
+\addtobeamertemplate{frametitle}{}{%
+\begin{textblock*}{100mm}(.8\textwidth,-0.9cm)
+\includegraphics[height=0.9cm]{figs/logos/paoc_logo.pdf}
+\end{textblock*}}
+
+\begin{document}
+% % Title Page
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}{The Mixing State Problem} % internal - external
+How do you represent \textbf{mixtures of aerosols} in GCMs/CRMs?
+\begin{columns}
+	\column{0.5\textwidth}
+		\begin{figure}
+		\includegraphics[width=\linewidth]{figs/mixing/internal_only.pdf}\\
+		Uniform, \textbf{homogeneous composition} particles  
+		\end{figure}
+	\column{0.5\textwidth}
+		\begin{figure}
+		\includegraphics[width=\linewidth]{figs/mixing/external_only.pdf}\\
+		Different populations of \textbf{chemically homogeneous} particles  
+		\end{figure}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The Mixing State Problem} % complex mixtures
+\begin{columns}
+	\column{0.6\textwidth}
+		\begin{figure}
+		\includegraphics[width=\linewidth]{figs/mixing/complex_mixture.pdf}
+		\end{figure}
+	\column{0.4\textwidth}
+		\begin{itemize}
+		\item<1-> Real aerosol populations are \textbf{chemically} and \textbf{physically heterogeneous}
+		\vspace{1cm}
+		\item<1-> Different particles with varying optical and microphysical properties
+		\vspace{1cm}
+		\item<2-> \alert{\textbf{Important} to capture this diversity in order to resolve \textbf{anthropogenic aerosol effects on clouds/climate!}}
+		\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Example Effect: Droplet Nucelation} % droplet nucleation - needs arrow/comments
+\begin{columns}
+	\column{0.5\textwidth}
+		\begin{itemize}
+		\item Put aerosols in an updraft... 
+			\begin{itemize}
+			\centering
+			\item[] adiabatic cooling %produces \emph{supersaturated} environment
+			\item[] $\downarrow$
+			\item[] supersaturated environment
+			\item[] $\downarrow$
+			\item[] condensational growth of aerosol/droplets
+			\item[] $\downarrow$
+			\item[] bifurcate aerosol into \textbf{\color{green}cloud droplets} ("activation") and \textbf{\color{orange}haze}
+			\end{itemize}
+		\vspace{0.5cm}
+		\item \textbf{Critical factor} - \tikz[remember picture] \node[rectangle,draw]  (text) {$S_\text{max}$}; (function of temperature, updraft speed, aerosol properties)
+		\vspace{0.5cm}
+		\item \alert{\textbf{How does the aerosol mixing state contribute to potential droplet activation?}}
+		\end{itemize}
+	\column{0.5\textwidth}
+		\includegraphics[width=1.\linewidth]{figs/example_run/pm_sample.pdf}
+\end{columns}
+% coordinate in figure
+\begin{tikzpicture}[remember picture,overlay]
+	\node [rectangle,draw,xshift=-3.65cm,yshift=-2.6cm,fill=blue!20,opacity=0.5] at 
+	(current page.north east) (fig) {};
+\end{tikzpicture}
+% connector
+\begin{tikzpicture}[remember picture, overlay]
+	\draw[->,very thick,opacity=.5] (text) to[bend right] (fig);
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Error in Droplet Nucleation due to\\Internal Mixing Assumption}
+\begin{columns}
+	\column{0.7\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{figs/mixing/decomposition_annot.pdf}
+	\column{0.3\textwidth}
+		Internal mixture of carbon/sulfate $\rightarrow$ decompose into spectrum of mixtures preserving number and mass of each species
+\end{columns}
+\vspace{-0.2cm}
+\begin{columns}
+	% %
+	\column{0.6\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{figs/internal_error/nact_error.pdf}
+	\column{0.4\textwidth}
+		\begin{itemize}
+		\vspace{-0.5cm}
+		\item Error in predicted droplet number from 1 m/s updraft, explicitly computed with detailed parcel model
+		\vspace{0.5cm}
+		\item \textbf{\color{red}{+100\% error}} when \textbf{\color{red}{mostly carbon}} - important for downwind of intense biomass burning/industrial emissions? 
+		\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame} % MARC schematics
+\centering
+\includegraphics[width=\linewidth]{figs/mixing/MARC_schematic.pdf}
+\end{frame}
+
+\begin{frame}{Droplet Nucleation / Activation Parameterization}
+\begin{block}{$S_\text{max}$ - the ``Activation Equation''}
+	From parcel theory, can derive (Ghan et al, 2011)
+	$$\frac{\alpha V}{\gamma} = \frac{4\pi\rho_w}{\rho_a}G S_\text{max}\int\limits_0^{S_\text{max}}\left(r^2(t_\text{act}) + 2G\int\limits_{t_\text{act}}^{t_\text{max}} S dt \right)^{1/2}\frac{dN}{dS_c}dS_c$$
+\end{block}
+\vspace{1cm}
+\begin{itemize}
+	\item Need assumptions,
+		\begin{enumerate}
+		\item aerosol modes have bulk properties (e.g. hygroscopicity)
+		\item instantaneous particle growth in equilibrium with relative humidity
+		\item activation instantly happens when particle sees critical $S$ (Kohler Theory)
+		\end{enumerate}
+	\vspace{0.5cm}
+	\item \textbf{Basic equation underlying parameterizations used in GCMs/CRMs to predict droplet nucleation}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Droplet Nucleation Errors in CESM+MARC}
+\begin{columns}
+	\column{0.5\textwidth}
+		\includegraphics[width=1.2\linewidth]{figs/cesm_mixing/N_act_arg.pdf}\\
+		\includegraphics[width=1.2\linewidth]{figs/cesm_mixing/N_act_fn.pdf}
+	\column{0.025\textwidth}
+	\column{0.4\textwidth}
+		\vspace{-1cm}
+		\begin{itemize}
+			\item Severe \textbf{underprediction} in areas with high carbonaceous aerosol loading
+			\vspace{0.8cm}
+			\item Exactly in regions most important for anthropogenic aerosol effects
+			\vspace{0.8cm}
+			\item Need to better parameterize mixing state / competition effects on droplet nucleation
+		\end{itemize}
+		%\vspace{1cm}
+		%\hrule
+		%\vspace{0.1cm}
+		
+		%\tiny{
+		%	Parameterizations:\\
+		%	ARG - Abdul-Razzak and Ghan, 2000\\
+		%	FN - Fountoukis and Nenes, 2005\\
+		%	explicit - numerical parcel model}
+\end{columns}
+\begin{tikzpicture}[remember picture, overlay]
+	\node [xshift=7.8cm,yshift=0.4cm] at (current page.south west)
+		[text width=10cm,fill=red!0,rounded corners,above right]
+	{
+		\tiny{Parameterizations:\\
+		ARG - Abdul-Razzak and Ghan, 2000\\
+		FN - Fountoukis and Nenes, 2005\\
+		explicit - numerical parcel model\\}
+	};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Polynomial Chaos Expansion of Parcel Model}
+\begin{itemize}
+	\item Polynomial \textbf{emulator} of full-complexity model
+	\item \textbf{Computationally-cheap} (produce/run), \textbf{accurate} distribution of modeled response
+\end{itemize}
+\begin{center}
+\includegraphics<1>[width=0.9\linewidth]{figs/pce_schematic/SCHEM1.pdf}
+\includegraphics<2>[width=0.9\linewidth]{figs/pce_schematic/SCHEM2.pdf}
+\includegraphics<3>[width=0.9\linewidth]{figs/pce_schematic/SCHEM3.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}{Emulation Results - Single Mode Aerosol}
+\begin{center}
+\vspace{-0.75cm}
+\includegraphics[width=0.475\linewidth]{figs/param_eval/parcel_vs_pce_nact.pdf}
+\includegraphics[width=0.475\linewidth]{figs/param_eval/parcel_vs_pce_smax.pdf}
+\end{center}
+\vspace{-0.5cm}
+\begin{columns}
+	\column{0.5\textwidth}
+		\centering
+		\vspace{-0.75cm}
+		\includegraphics[width=0.95\linewidth]{figs/param_eval/V_1D.pdf}
+	\column{0.5\textwidth}
+		\begin{itemize}
+			\item<1-> \textbf{TOP:} Emulator  well-calibrated except for \textbf{large number concentrations of \emph{small} particles} (SM5)
+			\item<1-> \textbf{LEFT:} Reproduces non-linear response in $S_\text{max}$ due to important variables
+			\item<2-> \alert{Next step - extend to multiple aerosol modes}
+		\end{itemize}
+\end{columns}
+\begin{tikzpicture}[remember picture,overlay]
+	\node [xshift=-2.5cm,yshift=-4.5cm] at (current page.north east)
+		(text) 
+	{
+		\tiny{Aerosols (SM$_i$) from Nenes and Seinfeld, 2003}
+	};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Conclusions/Summary}
+\begin{itemize}
+	\item<1-> Resolving some degree of the ``mixing state'' of heterogeneous aerosol calculations will change the potential for droplet nucleation and calculated cloud droplet burden.
+	\vspace{0.5cm}
+	\item<1-> Existing parameterizations for global models may not be well-calibrated for the complexity and diversity of aerosol populations predicted from mixing-state resolving models.
+	\vspace{0.5cm}
+	\item<2-> \alert{Biases in physics calculations due to complex mixing state must be addressed to accurately simulate anthropogneic aerosol effects on clouds and climate.}
+	\vspace{0.5cm}
+	\item<3-> Polynomial Chaos and other advanced statistical techniques could help produce efficient activation parameterizations specifically tuned for applications in GCMs and CRMs.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Acknowledgments}
+This material is based upon work supported by the National Science Foundation Graduate Research fellowship under NSF Grant No. 1122374\\
+
+\begin{center}
+\includegraphics[height=1.5cm]{figs/logos/nsf_logo.eps}\\
+\end{center}
+
+We would also like to thank Steve Ghan (PNNL) for providing a reference parcel model and code for his activation scheme; Rotem Bar-Or and Alex Avramov (MIT) for helping run the CESM+MARC and for helpful discussion; Dan Czizco, Ron Prinn, and Paul O'Gorman (MIT) for feedback and comments while preparing portions of this work for the MIT PAOC General Examination.\\
+\vspace{0.5cm}
+Coupled CESM+MARC runs performed using the NCAR Yellowstone supercomputer.
+\end{frame}
+
+\end{document}
