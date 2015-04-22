@@ -28,6 +28,10 @@
 	
 	# Pretty log
 	lg = log --decorate --stat --graph --pretty=format:'%C(yellow)%h%Creset (%ar - %Cred%an%Creset), %s%n'
+
+	# Pretty visual tree
+	tree = "log --oneline --decorate --all --graph"
+
 [color]
 	ui = auto
 	branch = auto
@@ -49,3 +53,7 @@
 [mergetool "diffmerge"]
 	trustExitCode = true
 	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
+[filter "hawser"]
+	clean = git hawser clean %f
+	smudge = git hawser smudge %f
+	required = true
