@@ -1,0 +1,142 @@
+%
+% Simple template for generating drafts of papers and articles
+%
+% OPTIONS: (to be defined in YAML header)
+%   fontsize (default: 11pt)
+%   lang
+%   papersize
+%   classoption
+%   documentclass (default: memoir)
+%   geometry - listing (default: margin=1in)
+%   graphicspath - listing
+%   numbersections
+%   natbib
+%       biblio-style
+%       biblio-files - listing
+%   header-includes - listing
+%   include-before/include-after - listing
+%   title
+%   abstract
+%   authors - listing of name, affiliation -> listing of address, id
+%
+\documentclass[$if(fontsize)$$fontsize$,$else$12pt,$endif$$if(lang)$$lang$,$endif$$if(papersize)$$papersize$,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$if(documentclass)$$documentclass$$else$memoir$endif$}
+\usepackage{authblk}
+\usepackage{fullpage}
+\usepackage{amssymb,amsmath}
+\usepackage[utf8]{inputenc}
+$for(header-includes)$
+$header-includes$
+$endfor$
+\usepackage{graphicx}
+% Redefine \includegraphics so that, unless explicit options are
+% given, the image width will not exceed the width or the height of the page.
+% Images get their normal width if they fit onto the page, but
+% are scaled down if they would overflow the margins.
+\makeatletter
+\def\ScaleWidthIfNeeded{%
+ \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\def\ScaleHeightIfNeeded{%
+  \ifdim\Gin@nat@height>0.9\textheight
+    0.9\textheight
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+\setkeys{Gin}{width=\ScaleWidthIfNeeded,height=\ScaleHeightIfNeeded,keepaspectratio}%
+$if(graphicspath)$
+\graphicspath{$for(graphicspath)${$graphicspath$}$endfor$}
+$endif$
+
+\usepackage{siunitx}
+\usepackage[version=3]{mhchem}
+
+$if(geometry)$
+\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$else$
+\usepackage[margin=1in]{geometry}
+$endif$
+
+$if(natbib)$
+\usepackage{natbib}
+\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
+$endif$
+
+\usepackage[left]{lineno}
+\linenumbers
+
+\usepackage{setspace}
+\doublespacing
+
+\usepackage[unicode=true]{hyperref}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            colorlinks=false,
+            pdfborder={0 0 0}}
+\urlstyle{same} % don't use a different (monospace) font for urls
+
+$if(numbersections)$
+\setcounter{secnumdepth}{5}
+$else$
+\setcounter{secnumdepth}{0}
+$endif$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$if(title)$
+\title{$title$$if(subtitle)$\\\vspace{0.5em}{\large $subtitle$}$endif$}
+$endif$
+
+$for(authors)$
+\author[$authors.affiliation$]{$authors.name$}
+$endfor$
+
+$for(affiliations)$
+\affil[$affiliations.id$]{$affiliations.address$}
+$endfor$
+
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+$if(title)$
+\maketitle
+$endif$
+
+$if(abstract)$
+\newpage
+\section*{Abstract}
+$abstract$
+\newpage
+$endif$
+
+$for(include-before)$
+$include-before$
+$endfor$
+
+$body$
+
+\newpage\clearpage
+
+$if(natbib)$
+$if(biblio-files)$
+\renewcommand\refname{References}
+\bibliography{$biblio-files$}
+\newpage
+$endif$
+$endif$
+
+$for(include-after)$
+$include-after$
+$endfor$
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
