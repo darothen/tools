@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+script_dir=$( pwd )/bin
+echo Linking files from $script_dir into ~/bin... 
+
+cd ~/bin
+for file in $( ls $script_dir/*.{py,sh} ); do
+    echo $file, $(basename $file)
+    ln -s -f $file .
+done
