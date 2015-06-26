@@ -9,7 +9,7 @@ Should be as simple as cloning my `tools` repo and running my dotfiles script, w
 ```bash
 git clone https://github.com/darothen/tools.git ~
 cd ~/tools/dotfiles
-./dotfiles [machine]
+./dotfiles install [machine]
 ```
 
 The optional argument `machine` lets you choose an "extra" file to be copied into your `$HOME` directory as `.bash_machine`. This is good if, say, you need to load modules or something else that are totally irrelevant for another machine.
