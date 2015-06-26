@@ -3,7 +3,7 @@
 	email = darothen@mit.edu
 [core]
 	editor = emacs
-	excludesfile = /Users/daniel/.gitignore_global
+	excludesfile = ~/.gitignore
 [merge]
 	tool = diffmerge
 [pull]
@@ -37,15 +37,16 @@
 	branch = auto
 	interactive = auto
 	diff = auto
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
+	
+[filter "hawser"]
+	clean = git hawser clean %f
+	smudge = git hawser smudge %f
+	required = true
+
 [diff]
 	tool = diffmerge
 [difftool "diffmerge"]
@@ -53,7 +54,3 @@
 [mergetool "diffmerge"]
 	trustExitCode = true
 	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
-[filter "hawser"]
-	clean = git hawser clean %f
-	smudge = git hawser smudge %f
-	required = true

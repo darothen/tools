@@ -1,0 +1,9 @@
+ # If Anaconda is locally installed, then add it to the path
+if [ -d $HOME/anaconda ]; then
+    export PATH=$PATH:$HOME/anaconda/bin
+    export PYTHONPATH=$HOME/anaconda/lib/python2.7/site-packages:$PYTHONPATH
+
+    export QT_API=pyside
+fi
+
+export EDITOR='emacs'

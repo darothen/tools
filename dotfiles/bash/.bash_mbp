@@ -1,0 +1,18 @@
+# Use hub to make life way easier
+alias git=hub
+
+# Markdown alias -> MarkedApp
+marked_func() {
+    if [ $1 ]; then
+        open -a "Marked 2" $1;
+    else
+        open -a "Marked 2";
+    fi
+}
+alias md=marked_func
+
+# Unmount a network drive
+unmount_func() {
+    sudo diskutil umount force $1
+}
+alias unmount=unmount_func

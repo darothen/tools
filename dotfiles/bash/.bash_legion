@@ -1,0 +1,63 @@
+
+source /etc/profile.d/modules.sh
+module load pgi
+
+## Update PATH with local libraries
+export PATH=/home/darothen/bin:/home/darothen/local/bin:$PATH
+
+## Update LD_LIBRARY_PATH for locally installed packages
+export LD_LIBRARY_PATH=/home/darothen/local/lib:/home/darothen/local$LD_LIBRARY_PATH
+
+## NCO - use custom-compiled package
+export PATH=/home/darothen/software/nco-4.4.7/nco_install/bin:$PATH
+
+## VisIt
+#export PATH=/home/darothen/visit/bin:$PATH
+
+## ADD DAKOTA LIBS
+#export DAKOTA_DIR=/home/darothen/dakota
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DAKOTA_DIR/bin:$DAKOTA_DIR/bin
+#export LD_LIBRARY_PATH=$DAKOTA_DIR/lib:/$ANACONDA/lib:$LD_LIBRARY_PATH
+#export PATH=$PATH:$DAKOTA_DIR/bin:$DAKOTA_DIR/test
+
+## Add research workspace to PYTHONPATH
+export PYTHONPATH=$ANACONDA/lib/python2.7/site-packages:$PYTHONPATH
+export PYTHONPATH=$PYTHONPATH:/home/darothen/workspace/
+
+## Legion-specific path/software setup
+export LOCAL_LIB=/home/local/lib
+export LOCAL_INC=/home/local/include
+
+## Path to CESM/MARC code and run directories
+export CESM_SRC=$HOME/models/CESM/cesm105_aer
+export MARC_SRC=$HOME/models/CESM/newMITaer
+export CESM_RUN=$HOME/models/CESM/runs_cesm105_aer
+
+## Paths to network drives
+export NETSTORE1=/net/s000/volume1/storage01
+export NETSTORE2=/net/s001/volume1/storage01
+
+# Local OpenMPI-1.4.5 installation
+export LIB_MPI=/home/darothen/local/lib/openmpi
+export INC_MPI=/home/darothen/local/include
+
+# CDAT
+export CDATDIR=/usr/local/opt/cdat
+
+# Old netCDF hardcoding, should be overwritten with local
+# netCDF build
+#export NETCDF=/home/software/pgi/pgi-packages/pgi-10/netcdf/netcdf-3.6.2
+#export NC_LIB=/home/software/pgi/pgi-packages/pgi-10/netcdf/netcdf-3.6.2/lib
+#export NC_INC=/home/software/pgi/pgi-packages/pgi-10/netcdf/netcdf-3.6.2/include
+#export MODULE_PATH=/home/hjshin/work/modules
+
+# JASPER
+#export JASPERLIB=$LOCAL_LIB
+#export JASPERINC=$LOCAL_INC
+
+# NCARG
+export NCARG_ROOT=/home/darothen/local
+
+
+# Hack for Paraview client to open correctly
+export LIBGL_ALWAYS_INDIRECT=y
