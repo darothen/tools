@@ -35,7 +35,7 @@ fi
 # -------------------------------------------------------------- #
 
 # Begin setting up PATH
-export PATH=$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/texbin:$PATH
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/texbin:$PATH
 
 # Detect platform 
 platform='unknown'
@@ -79,3 +79,6 @@ scpnewton() {
     echo -e "Copying $1 to $NEWTON:$2\n"
     scp -P $NEWTON_PORT $1 darothen@$NEWTON:$2
 }
+
+# Be sure that home/bin is at front of path
+export $PATH=$HOME/bin:$PATH
