@@ -39,6 +39,7 @@ NC="\e[m"               # Color Reset
 ALERT=${BWhite}${On_Red} # Bold White on red background
 
 # Determine which machine we're on for coloring
+path_color=$Cyan;
 case "$HOST" in 
     legion | l00*)
         mach_color=$BRed;;
@@ -48,6 +49,8 @@ case "$HOST" in
         mach_color=$BPurple;;
     newton*)
         mach_color=$BCyan;;
+    *ubuntu*)
+        mach_color=$BWhite;;
     *)
         mach_color=$BBlue;;
 esac
@@ -58,9 +61,10 @@ esac
 
 PROMPT_COMMAND="history -a"
 
-PS1="${TITLEBAR} \
+#PS1="${TITLEBAR}\
+PS1="\
 \[$Blue\][\[$Red\]\$(date +%H%M)\[$Blue\]]\
- \[$BWhite\]\u\[$Red\]@\[$mach_color\]\h\[$Red\]:\[$Cyan\]\w\
+ \[$BWhite\]\u\[$Red\]@\[$mach_color\]\h\[$Red\]:\[$path_color\]\w\
 \[$Gray\]$ "
 PS2='> '
 PS4='+ '

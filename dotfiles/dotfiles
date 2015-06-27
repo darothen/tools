@@ -18,7 +18,8 @@ DOTFILES = {
                  "profile", "prompt"] ],
 }
 
-MACHINES = ["mbp", "legion", "svante", "yellowstone", "newton"]
+MACHINES = ["mbp", "legion", "svante", "yellowstone", "newton", 
+            "ubuntu", ]
 
 app = EntryPoint("dotfiles-handler")
 
