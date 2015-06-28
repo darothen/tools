@@ -14,6 +14,17 @@ cd ~/tools/dotfiles
 
 The optional argument `machine` lets you choose an "extra" file to be copied into your `$HOME` directory as `.bash_machine`. This is good if, say, you need to load modules or something else that are totally irrelevant for another machine.
 
+## other installation
+
+If that doesn't work, clone the repository into your home directory
+and execute
+
+```bash
+for file in tools/dotfiles/bash/.*; do ln -s -f $file $(basename $file); done
+```
+
+then rename *.bash_[your_machine]* to *.bash_machine*
+
 ## please for the love of god help me
 
 This could probably be a *way* better system. So please please send feedback to daniel AT danielrothenberg DOT com if you stumble across this!
