@@ -1,3 +1,7 @@
+# Links to Dropbox folders, use quotes when accessing (cd "$DBPER")
+export DBPER=/Users/daniel/Dropbox\ \(Personal\)/
+export DBMIT=/Users/daniel/Dropbox\ \(MIT\)/
+
 # Use hub to make life way easier
 alias git=hub
 
