@@ -56,7 +56,7 @@ else
 endif 
 
 ## Choose PDF options for latexmk
-ifeq (LATEX_ENGINE, xelatex)
+ifeq ($(LATEX_ENGINE), xelatex)
 	PDF_OPTS = -xelatex
 else
 	PDF_OPTS = 
@@ -86,7 +86,7 @@ endif
 
 %.html:	%.$(MEXT)
 	pandoc \
-		-r $(MD_FLAVOR)+simple_tables+table_captions+yaml_metadata_block \
+		-r $(MD_FLAVOR)+simple_tables+table_captions+yaml_metadata_block+tex_math_single_backslash \
 		-w html \
 		-S \
 		--template=$(PREFIX)/templates/$(HTML_TEMPLATE) \
@@ -100,7 +100,7 @@ endif
 
 %.tex_docx:	%.$(MEXT)
 	pandoc \
-		-r $(MD_FLAVOR)+simple_tables+table_captions+yaml_metadata_block \
+		-r $(MD_FLAVOR)+simple_tables+table_captions+yaml_metadata_block+tex_math_single_backslash \
 		-w latex \
 		-s -S \
 		--template=$(PREFIX)/templates/$(LATEX_TEMPLATE) \
@@ -109,7 +109,7 @@ endif
 
 %.tex:	%.$(MEXT)
 	pandoc \
-		-r $(MD_FLAVOR)+simple_tables+table_captions+yaml_metadata_block \
+		-r $(MD_FLAVOR)+simple_tables+table_captions+yaml_metadata_block+tex_math_single_backslash \
 		-w latex \
 		-s -S \
 		--template=$(PREFIX)/templates/$(LATEX_TEMPLATE) \
