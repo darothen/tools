@@ -128,7 +128,7 @@ $body$
 $if(natbib)$
 $if(biblio-files)$
 \renewcommand\refname{References}
-\bibliography{$biblio-files$}
+\bibliography{$bibliography$}
 \newpage
 $endif$
 $endif$

@@ -33,6 +33,11 @@
 % can adjust the margins by going into this file and messing with the margins.
 % the syntax is very unforgiving, but permits 3cm and 2.5in and some other things.
 
+% Bibliography control
+$if(natbib)$
+\usepackage{natbib}
+\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
+$endif$
 
 % Font:
 % Here I set my main font, which is an Apple Corporation Exclusive, golly. 
@@ -271,6 +276,14 @@ $if(alignment)$
 $endif$
 
 $body$
+
+$if(natbib)$
+$if(biblio-files)$
+\renewcommand\refname{References}
+\bibliography{$biblio-files$}
+\newpage
+$endif$
+$endif$
 
 %$if(alignment)$
 \end{$alignment$}
