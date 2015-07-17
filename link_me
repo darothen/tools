@@ -6,4 +6,5 @@ cd ~/bin
 for file in $( ls $script_dir/*.{py,sh} ); do
     echo $file, $(basename $file)
     ln -s -f $file .
+    chmod +x $file
 done
