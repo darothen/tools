@@ -17,7 +17,7 @@ def pdf_to_png(filename, density=300, resize=25):
     density_str = "%d" % (int(density), )
     resize_str = "%d" % (int(resize), )
 
-    !convert -density {density_str} {filename} -resize {resize_str} {new_filename}
+    !convert -density {density_str} {filename} -resize {resize_str}% {new_filename}
 
 
 if __name__ == "__main__":

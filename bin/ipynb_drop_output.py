@@ -64,7 +64,7 @@ nb = sys.stdin.read()
 
 json_in = json.loads(nb)
 nb_metadata = json_in["metadata"]
-suppress_output = False
+suppress_output = True
 if "git" in nb_metadata:
     if "suppress_outputs" in nb_metadata["git"] and nb_metadata["git"]["suppress_outputs"]:
         suppress_output = True
@@ -80,7 +80,8 @@ def strip_output_from_cell(cell):
         cell["outputs"] = []
     if "prompt_number" in cell:
         del cell["prompt_number"]
-
+    if "execution_count" in cell:
+        del cell["execution_count"]
 
 if ipy_version == 2:
     for sheet in json_in["worksheets"]:
