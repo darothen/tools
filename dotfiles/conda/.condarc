@@ -1,0 +1,6 @@
+channels:
+  - r
+  - defaults
+  - darothen
+
+show_channel_urls: True
