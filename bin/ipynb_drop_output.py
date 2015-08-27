@@ -80,8 +80,6 @@ def strip_output_from_cell(cell):
         cell["outputs"] = []
     if "prompt_number" in cell:
         del cell["prompt_number"]
-    if "execution_count" in cell:
-        del cell["execution_count"]
 
 if ipy_version == 2:
     for sheet in json_in["worksheets"]:
