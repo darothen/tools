@@ -3,7 +3,7 @@
 	email = darothen@mit.edu
 [core]
 	editor = emacs -nw
-	excludesfile = ~/.gitignore
+	excludesfile = $HOME/.gitignore_global
 [merge]
 	tool = diffmerge
 [pull]
