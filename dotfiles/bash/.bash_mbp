@@ -20,3 +20,6 @@ unmount_func() {
     sudo diskutil umount force $1
 }
 alias unmount=unmount_func
+
+# Add experimental libs directory to python path
+export PYTHONPATH=$HOME/workspace/python_libs/:$PYTHONPATH

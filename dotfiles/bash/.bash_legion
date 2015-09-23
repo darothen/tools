@@ -1,4 +1,3 @@
-
 ## Load ModuleFiles package, but don't load anything in particular.
 source /etc/profile.d/modules.sh
 module load git
@@ -7,9 +6,6 @@ module load glibc
 
 ## Update PATH with local libraries
 export PATH=/home/darothen/bin:/home/darothen/local/bin:$PATH
-
-## Add miniconda to path
-export PATH="/home/darothen/miniconda/bin:$PATH"
 
 ## Update LD_LIBRARY_PATH for locally installed packages
 export LD_LIBRARY_PATH=/home/darothen/local/lib:/home/darothen/local$LD_LIBRARY_PATH

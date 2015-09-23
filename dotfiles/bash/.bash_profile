@@ -7,7 +7,7 @@
 #
 # This configuration file is the stub I use to modify my working environment
 # on *nix systems. Some of the particular PATH modfications may need to be
-# altered depending on where the script is ported, but anything after the 
+# altered depending on where the script is ported, but anything after the
 # user-configuration section should be fine.
 #
 # with inspiration from:
@@ -37,7 +37,7 @@ fi
 # Begin setting up PATH
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/texbin:$PATH
 
-# Detect platform 
+# Detect platform
 platform='unknown'
 unamestr=$(uname)
 hostnamestr=$(hostname)
@@ -54,7 +54,7 @@ export HOST=$hostnamestr
 echo "Configuring for platform $PLATFORM on host $HOST..."
 
 # Load shell dotfiles
-for file in ~/.bash_{aliases,exports,functions,prompt,machine}; do
+for file in ~/.bash_{machine,aliases,exports,functions,prompt}; do
     [ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
 unset file
