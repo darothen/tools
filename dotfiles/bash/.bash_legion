@@ -1,6 +1,6 @@
 ## Load ModuleFiles package, but don't load anything in particular.
 source /etc/profile.d/modules.sh
-#module load git
+module load git
 #module load glibc
 #module load pgi
 
