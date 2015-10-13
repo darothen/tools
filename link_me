@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 script_dir=$( pwd )/bin
-echo Linking files from $script_dir into ~/bin... 
+echo Linking files from $script_dir into ~/bin...
 
 cd ~/bin
-for file in $( ls $script_dir/*.{py,sh} ); do
+for file in $(find $script_dir -name "*.py" -or -name "*.sh"); do
     echo $file, $(basename $file)
     ln -s -f $file .
     chmod +x $file
