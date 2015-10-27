@@ -32,6 +32,9 @@
 	# Pretty visual tree
 	tree = "log --oneline --decorate --all --graph"
 
+	# Quickly get short git commit of HEAD
+	ver = describe --always --match v[0-9]*
+
 [color]
 	ui = auto
 	branch = auto
