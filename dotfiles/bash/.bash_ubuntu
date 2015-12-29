@@ -1,5 +1,5 @@
 ## Anaconda
-export ANACONDA=/home/daniel/anaconda
+export ANACONDA=/home/daniel/miniconda
 export PATH=$ANACONDA/bin:$PATH
 
 ## MOTD 
