@@ -5,13 +5,14 @@ REDUCE_BIB.PY
 Given a bibtex archive file and a Markdown manuscript, generate
 a reduced bibtex file which only contains the citations for the papers
 referenced in the manuscript. Currently, assumes that citations in the
-manuscript are prefixed with an "@" sign (e.g. citeproc or natib 
-format). 
+manuscript are prefixed with an "@" sign (e.g. citeproc or natib
+format).
 
 Author: Daniel Rothenberg
 Version: June 9, 2015
 
 """
+from __future__ import print_function
 
 import argparse
 import codecs
@@ -28,7 +29,7 @@ parser = argparse.ArgumentParser(description="Reduce a bibtex file based on " +
                     "the specific journal articles cited in a manuscript")
 parser.add_argument("bibtex_archive", type=str, help="name of bibtex archive")
 parser.add_argument("manuscript", type=str, help="name of manuscript")
-parser.add_argument("--output", "-o", type=str, 
+parser.add_argument("--output", "-o", type=str,
                     help="name of output file with bibtex subset")
 
 def split_filename(path_to_file):
@@ -43,12 +44,12 @@ PATTERN = re.compile(r"""
     \W                       # non-alphanumeric character before "@"
     @{1}                     # entries begining with "@"
     (?P<citekey>(\w|\-|\_)*) # any combination of alpha-numeric, "-", or "_"
-""", re.VERBOSE)    
+""", re.VERBOSE)
 
 if __name__ == "__main__":
 
     args = parser.parse_args()
-    
+
     arch_fn = args.bibtex_archive
     manu_fn = args.manuscript
     if args.output:
@@ -59,11 +60,11 @@ if __name__ == "__main__":
 
     #######################################################
     # Read the bibtex archive
-    print "Analyzing archive in %s" % arch_fn
+    print("Analyzing archive in %s" % arch_fn)
 
     bp = BibTexParser()
     #bp.customization = convert_to_unicode
-    with open(arch_fn, 'rb') as bibfile:
+    with open(arch_fn, 'r') as bibfile:
         bib_db = bibtexparser.load(bibfile, parser=bp)
 
     ## Extract the entries in the bibtex archive and their keys
@@ -72,7 +73,7 @@ if __name__ == "__main__":
 
     #######################################################
     # Read the manuscript
-    print "Analyzing mauscript %s" % manu_fn
+    print("Analyzing mauscript %s" % manu_fn)
 
     with open(manu_fn, 'rb') as manufile:
         lines = manufile.readlines()
@@ -80,9 +81,11 @@ if __name__ == "__main__":
 
     # Create a set of bibtex keys referenced in the manuscript
     manu_keys = set()
-    print "\nFound keys: ",
+    print("\nFound keys: ", end=' ')
     for line in lines:
-        if not "@" in line: continue
+        line = str(line)
+        if not "@" in line:
+            continue
         matches = re.findall(PATTERN, line)
 
         if matches:
@@ -90,10 +93,10 @@ if __name__ == "__main__":
             line_keys = set(line_keys)
 
             new_keys = line_keys.difference(manu_keys)
-            for key in new_keys: 
+            for key in new_keys:
                 manu_keys.add(key)
-                print key,
-    print "\n...done searching %s" % manu_fn
+                print(key, end=' ')
+    print("\n...done searching %s" % manu_fn)
 
     #######################################################
     # Assemble a bibtex subset using the found keys
@@ -102,25 +105,25 @@ if __name__ == "__main__":
     # from the bibtex archive!
     missing_keys = manu_keys.difference(entry_keys)
     if missing_keys:
-        print "WARNING: The following keys could not be found in %s" % arch_fn
-        for i, k in enumerate(missing_keys): 
+        print("WARNING: The following keys could not be found in %s" % arch_fn)
+        for i, k in enumerate(missing_keys):
             manu_keys.discard(k)
-            print i, k
+            print(i, k)
 
-    # Else, we can go ahead and assemble the subset. 
+    # Else, we can go ahead and assemble the subset.
     entries_subset = {
         key: entries.get(key, None) for key in manu_keys
     }
 
-    entries = [ v for v in entries_subset.itervalues() ]
+    entries = [ v for v in entries_subset.values() ]
 
-    # Modify a copy of the bib_db 
+    # Modify a copy of the bib_db
     bib_subset = copy.copy(bib_db)
     bib_subset.entries = entries
     bib_subset._entry_dict = entries_subset
 
     # Write to disk; we write a UTF-8 encoded file for unicode support
-    print "\nWriting %s" % output_fn
+    print("\nWriting %s" % output_fn)
     with codecs.open(output_fn, 'wb', 'utf-8') as subset_file:
         bibtexparser.dump(bib_subset, subset_file)
-    print "...done."
+    print("...done.")
