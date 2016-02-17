@@ -9,12 +9,11 @@ manuscript are prefixed with an "@" sign (e.g. citeproc or natib
 format).
 
 Author: Daniel Rothenberg
-Version: June 9, 2015
+Version: February 17, 2016
 
 """
 from __future__ import print_function
 
-import argparse
 import codecs
 import copy
 import os
@@ -22,15 +21,20 @@ import re
 
 import bibtexparser
 from bibtexparser.bparser import BibTexParser
-from bibtexparser.customization import convert_to_unicode
-from bibtexparser.customization import homogeneize_latex_encoding
+# from bibtexparser.customization import convert_to_unicode
 
-parser = argparse.ArgumentParser(description="Reduce a bibtex file based on " +
-                    "the specific journal articles cited in a manuscript")
-parser.add_argument("bibtex_archive", type=str, help="name of bibtex archive")
-parser.add_argument("manuscript", type=str, help="name of manuscript")
+from argparse import ArgumentParser, RawDescriptionHelpFormatter
+parser = ArgumentParser(description=__doc__,
+                        formatter_class=RawDescriptionHelpFormatter)
+
+parser.add_argument("bibtex_archive", type=str,
+                    help="name of bibtex archive")
+parser.add_argument("manuscript", type=str,  nargs="+",
+                    metavar="<first.md, ..., last.md>",
+                    help="names of manuscript files")
 parser.add_argument("--output", "-o", type=str,
                     help="name of output file with bibtex subset")
+
 
 def split_filename(path_to_file):
     """ Split a filename into its root path, its basename, and
@@ -51,11 +55,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     arch_fn = args.bibtex_archive
-    manu_fn = args.manuscript
     if args.output:
         output_fn = args.output
     else:
-        _, m_basename, _ = split_filename(args.manuscript)
+        _, m_basename, _ = split_filename(args.manuscript[0])
         output_fn = "%s.bib" % m_basename
 
     #######################################################
@@ -63,40 +66,43 @@ if __name__ == "__main__":
     print("Analyzing archive in %s" % arch_fn)
 
     bp = BibTexParser()
-    #bp.customization = convert_to_unicode
+    # bp.customization = convert_to_unicode
     with open(arch_fn, 'r') as bibfile:
         bib_db = bibtexparser.load(bibfile, parser=bp)
 
-    ## Extract the entries in the bibtex archive and their keys
+    # Extract the entries in the bibtex archive and their keys
     entries = bib_db.get_entry_dict()
     entry_keys = entries.keys()
 
-    #######################################################
-    # Read the manuscript
-    print("Analyzing mauscript %s" % manu_fn)
-
-    with open(manu_fn, 'rb') as manufile:
-        lines = manufile.readlines()
-    lines = [l for l in lines if l != "\n" ]
-
     # Create a set of bibtex keys referenced in the manuscript
     manu_keys = set()
-    print("\nFound keys: ", end=' ')
-    for line in lines:
-        line = str(line)
-        if not "@" in line:
-            continue
-        matches = re.findall(PATTERN, line)
 
-        if matches:
-            line_keys, _ = zip(*matches)
-            line_keys = set(line_keys)
+    #######################################################
+    # Read the manuscripts
+    print("Analyzing manuscript files... ")
+    for i, manu_fn in enumerate(args.manuscript, start=1):
+        print("{:02d}) {:s}".format(i, manu_fn))
 
-            new_keys = line_keys.difference(manu_keys)
-            for key in new_keys:
-                manu_keys.add(key)
-                print(key, end=' ')
-    print("\n...done searching %s" % manu_fn)
+        with open(manu_fn, 'rb') as manufile:
+            lines = manufile.readlines()
+        lines = [l for l in lines if l != "\n"]
+
+        print("   Found keys: ", end=' ')
+        for line in lines:
+            line = str(line)
+            if "@" not in line:
+                continue
+            matches = re.findall(PATTERN, line)
+
+            if matches:
+                line_keys, _ = zip(*matches)
+                line_keys = set(line_keys)
+
+                new_keys = line_keys.difference(manu_keys)
+                for key in new_keys:
+                    manu_keys.add(key)
+                    print(key, end=' ')
+        print()  # Close "found keys" print loop
 
     #######################################################
     # Assemble a bibtex subset using the found keys
@@ -115,7 +121,7 @@ if __name__ == "__main__":
         key: entries.get(key, None) for key in manu_keys
     }
 
-    entries = [ v for v in entries_subset.values() ]
+    entries = [v for v in entries_subset.values()]
 
     # Modify a copy of the bib_db
     bib_subset = copy.copy(bib_db)
