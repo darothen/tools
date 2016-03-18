@@ -1,6 +1,6 @@
 ## Load ModuleFiles package, but don't load anything in particular.
 source /etc/profile.d/modules.sh
-module load git
+#module load git
 #module load glibc
 #module load pgi
 
@@ -16,17 +16,14 @@ export PATH="/home/darothen/miniconda/bin:$PATH"
 ## Update LD_LIBRARY_PATH for locally installed packages
 export LD_LIBRARY_PATH=/home/darothen/local/lib:/home/darothen/local$LD_LIBRARY_PATH
 
-## NCO - use custom-compiled package
-export PATH=/home/darothen/software/nco-4.4.7/nco_install/bin:$PATH
-
 ## VisIt
 #export PATH=/home/darothen/visit/bin:$PATH
 
 ## ADD DAKOTA LIBS
-#export DAKOTA_DIR=/home/darothen/dakota
-#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DAKOTA_DIR/bin:$DAKOTA_DIR/bin
+export DAKOTA_DIR=/home/darothen/dakota
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DAKOTA_DIR/bin:$DAKOTA_DIR/bin
 #export LD_LIBRARY_PATH=$DAKOTA_DIR/lib:/$ANACONDA/lib:$LD_LIBRARY_PATH
-#export PATH=$PATH:$DAKOTA_DIR/bin:$DAKOTA_DIR/test
+export PATH=$PATH:$DAKOTA_DIR/bin:$DAKOTA_DIR/test
 
 ## Legion-specific path/software setup
 export LOCAL_LIB=/home/local/lib
