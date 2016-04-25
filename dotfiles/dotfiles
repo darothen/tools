@@ -16,7 +16,8 @@ DOTFILES = {
             [ ".bash_%s" % s for s in 
                 ["aliases", "exports", "functions", 
                  "profile", "prompt"] ],
-    'conda': [ '.condarc', ]
+    'conda': [ '.condarc', ],
+    'emacs': [ '.emacs', ]
 }
 
 MACHINES = ["mbp", "legion", "svante", "yellowstone", "newton", 
