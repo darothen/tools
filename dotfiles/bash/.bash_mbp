@@ -24,3 +24,7 @@ alias unmount=unmount_func
 
 # Add experimental libs directory to python path
 export PYTHONPATH=$HOME/workspace/python_libs/:$PYTHONPATH
+
+# Fix unicode encoding on iterm2
+export LC_ALL=en_US.UTF-8  
+export LANG=en_US.UTF-8

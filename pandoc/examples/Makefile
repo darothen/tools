@@ -49,17 +49,17 @@ CSS = kultiad.css
 ## specified
 ifndef BIB
 	BIB_OPTS_PANDOC =
-	BIB_OPTS_NATBIB = 
+	BIB_OPTS_NATBIB =
 else
 	BIB_OPTS_PANDOC = --filter pandoc-citeproc --csl=$(PREFIX)/csl/$(CSL) --bibliography=$(BIB)
 	BIB_OPTS_NATBIB = --natbib --csl=$(PREFIX)/csl/$(CSL) --bibliography=$(BIB)
-endif 
+endif
 
 ## Choose PDF options for latexmk
 ifeq ($(LATEX_ENGINE), xelatex)
 	PDF_OPTS = -xelatex
 else
-	PDF_OPTS = 
+	PDF_OPTS =
 endif
 
 ## All markdown files in the working directory
@@ -78,7 +78,7 @@ pdf:	clean $(PDFS)
 html:	clean $(HTML)
 tex:	clean $(TEX)
 
-docx:   clean $(TEX_DOCX) $(DOCX) 
+docx:   clean $(TEX_DOCX) $(DOCX)
 
 ifdef BIB
 	@echo Using bibliography file $(BIB) with style $(CSL)
