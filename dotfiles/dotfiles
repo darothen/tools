@@ -1,41 +1,44 @@
 #!/usr/bin/env python
-"""
-Commands:
-    install - install the dotfiles into home directory; accept
-              an argument for which machine's additional module
-              to install (copied to ~/.bash_machine)
+""" Install dotfiles for a specific machine.
+
 """
 from __future__ import print_function
 
-from argh import arg, EntryPoint
-import os, errno
+import errno
+import os
 
 DOTFILES = {
-    'git': [ ".gitconfig", ".gitignore", ],
-    'bash': [ '.bashrc', ] +
-            [ ".bash_%s" % s for s in 
-                ["aliases", "exports", "functions", 
-                 "profile", "prompt"] ],
-    'conda': [ '.condarc', ],
-    'emacs': [ '.emacs', ]
+    'git': [".gitconfig", ".gitignore", ],
+    'bash': ['.bashrc', ] +
+            [".bash_%s" % s for s in [
+                "aliases", "exports", "functions", "profile", "prompt"
+            ]],
+    'conda': ['.condarc', ],
+    'emacs': ['.emacs', ]
 }
 
-MACHINES = ["mbp", "legion", "svante", "yellowstone", "newton", 
+MACHINES = ["mbp", "legion", "svante", "yellowstone", "newton",
             "ubuntu", ]
 
-app = EntryPoint("dotfiles-handler")
+
+from argparse import ArgumentParser, RawDescriptionHelpFormatter
+parser = ArgumentParser(description=__doc__,
+                        formatter_class=RawDescriptionHelpFormatter)
+parser.add_argument("machine", type=str, choices=MACHINES,
+                    help="Name of machine for installation of bash scripts")
+
 
 def link(path_to_target, path_to_symlink):
-    """ Convenience function for symlinking; takes care of 
+    """ Convenience function for symlinking; takes care of
     printing information and overwriting files if necessary. """
-    
+
     link_str_fmt = "{mode:s} {target:s} -> {src:s}"
 
     MODE = "Linking"
     try:
         os.symlink(path_to_target, path_to_symlink)
-    except OSError, e:
-        if e.errno == errno.EEXIST: # File already exists
+    except OSError as e:
+        if e.errno == errno.EEXIST:  # File already exists
             os.remove(path_to_symlink)
             os.symlink(path_to_target, path_to_symlink)
             MODE = "Overwriting"
@@ -44,11 +47,8 @@ def link(path_to_target, path_to_symlink):
                               src=path_to_symlink))
 
 
-@app
-@arg("machine", help="machine to copy to '.bash_machine'",
-     choices=MACHINES)
 def install(machine):
-    
+
     HOME = os.environ['HOME']
     DOT_DIR = os.getcwd()
 
@@ -70,4 +70,7 @@ def install(machine):
             link(src, dest)
 
 if __name__ == "__main__":
-    app()
+
+    args = parser.parse_args()
+    print("Installing for machine {}".format(args.machine))
+    install(args.machine)
