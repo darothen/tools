@@ -14,8 +14,9 @@ DOTFILES = {
                 "aliases", "exports", "functions", "profile", "prompt"
             ]],
     'conda': ['.condarc', ],
-    'emacs': ['.emacs', ]
+    '.emacs.d': ['init.el', ]
 }
+INTERMEDIATES = ['.emacs.d', ]
 
 MACHINES = ["mbp", "legion", "svante", "yellowstone", "newton",
             "ubuntu", ]
@@ -65,7 +66,11 @@ def install(machine):
 
         for f in files:
             src = os.path.join(DOT_DIR, tool, f)
-            dest = os.path.join(HOME, f)
+            # Do we need to include an intermediate folder in the dotfile path?
+            if tool in INTERMEDIATES:
+                dest = os.path.join(HOME, tool, f)
+            else:
+                dest = os.path.join(HOME, f)
 
             link(src, dest)
 
