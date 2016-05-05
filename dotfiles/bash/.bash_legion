@@ -1,64 +1,48 @@
 ## Load ModuleFiles package, but don't load anything in particular.
-source /etc/profile.d/modules.sh
-#module load git
-#module load glibc
-#module load pgi
+source /usr/share/modules/init/bash
+export MODULEPATH=$HOME/modulefiles:$MODULEPATH
+
+module load eaps/pgi
+module load netcdf/pgi
+module load mpich/pgi
+# module load miniconda
 
 # Setup nbserver alias for jupyter
 alias jupyter-nbserver='JUPYTER_CONFIG_DIR=~/.jupyter-nbserver jupyter notebook'
 
-## Update PATH with local libraries
-export PATH=/home/darothen/bin:/home/darothen/local/bin:$PATH
+# Update PATH with local libraries
+# export PATH=/home/darothen/bin:/home/darothen/local/bin:$PATH
 
-## Add miniconda to path
-export PATH="/home/darothen/miniconda/bin:$PATH"
-
-## Update LD_LIBRARY_PATH for locally installed packages
-export LD_LIBRARY_PATH=/home/darothen/local/lib:/home/darothen/local$LD_LIBRARY_PATH
+# Update LD_LIBRARY_PATH for locally installed packages
+# export LD_LIBRARY_PATH=/home/darothen/local/lib:/home/darothen/local$LD_LIBRARY_PATH
 
 ## VisIt
 #export PATH=/home/darothen/visit/bin:$PATH
 
 ## ADD DAKOTA LIBS
-export DAKOTA_DIR=/home/darothen/dakota
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DAKOTA_DIR/bin:$DAKOTA_DIR/bin
-#export LD_LIBRARY_PATH=$DAKOTA_DIR/lib:/$ANACONDA/lib:$LD_LIBRARY_PATH
-export PATH=$PATH:$DAKOTA_DIR/bin:$DAKOTA_DIR/test
-
-## Legion-specific path/software setup
-export LOCAL_LIB=/home/local/lib
-export LOCAL_INC=/home/local/include
+#export DAKOTA_DIR=/home/darothen/dakota
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DAKOTA_DIR/bin:$DAKOTA_DIR/bin
+##export LD_LIBRARY_PATH=$DAKOTA_DIR/lib:/$ANACONDA/lib:$LD_LIBRARY_PATH
+#export PATH=$PATH:$DAKOTA_DIR/bin:$DAKOTA_DIR/test
 
 ## Path to CESM/MARC code and run directories
-export CESM_SRC=$HOME/models/CESM/cesm105_aer
-export MARC_SRC=$HOME/models/CESM/newMITaer
-export CESM_RUN=$HOME/models/CESM/runs_cesm105_aer
+export CESM_SRC=$HOME/models/CESM/cesm1_2_2_marc-working
+export MARC_SRC=$HOME/models/CESM/mark
+export CESM_RUN=$HOME/workspace/CESM_runs/122-marc/
 
 ## Paths to network drives
 export NETSTORE1=/net/s000/volume1/storage01
 export NETSTORE2=/net/s001/volume1/storage01
-
-# Local OpenMPI-1.4.5 installation
-export LIB_MPI=/home/darothen/local/lib/openmpi
-export INC_MPI=/home/darothen/local/include
-
-# CDAT
-export CDATDIR=/usr/local/opt/cdat
-
-# Old netCDF hardcoding, should be overwritten with local
-# netCDF build
-#export NETCDF=/home/software/pgi/pgi-packages/pgi-10/netcdf/netcdf-3.6.2
-#export NC_LIB=/home/software/pgi/pgi-packages/pgi-10/netcdf/netcdf-3.6.2/lib
-#export NC_INC=/home/software/pgi/pgi-packages/pgi-10/netcdf/netcdf-3.6.2/include
-#export MODULE_PATH=/home/hjshin/work/modules
 
 # JASPER
 #export JASPERLIB=$LOCAL_LIB
 #export JASPERINC=$LOCAL_INC
 
 # NCARG
-export NCARG_ROOT=/home/darothen/local
+#export NCARG_ROOT=/home/darothen/local
 
+# PERL5 - local install libraries
+export PERL5LIB=/home/darothen/perl5/lib/perl5:$PERL5LIB
 
 # Hack for Paraview client to open correctly
 export LIBGL_ALWAYS_INDIRECT=y
