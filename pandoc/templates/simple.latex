@@ -1,5 +1,5 @@
-\documentclass[11pt]{scrartcl}  
-% \documentclass[12pt]{article} 
+\documentclass[11pt]{scrartcl}
+% \documentclass[12pt]{article}
 % \documentclass[11pt,article,oneside]{memoir}
 
 \usepackage{amsmath}
@@ -13,18 +13,18 @@
 \setkomafont{sectioning}{\rmfamily\mdseries\upshape\normalsize}
 \setkomafont{descriptionlabel}{\rmfamily\mdseries\upshape\normalsize}
 
-\usepackage[flushmargin]{footmisc} 
+\usepackage[flushmargin]{footmisc}
 % \usepackage[hang,flushmargin]{footmisc}
 
 % Paragraph format:
 % Pandoc prefers unindented paragraphs in the European style:
 \setlength{\parindent}{0pt}
-%  ... with paragraph breaks marked by a slight lengthening of 
+%  ... with paragraph breaks marked by a slight lengthening of
 % the space between paragraphs:
 \setlength{\parskip}{6pt plus 2pt minus 1pt}
 
 % Page format:
-\pagestyle{plain}  
+\pagestyle{plain}
 % The default `plain` pagestyle just numbers the pages
 
 % Footnotes
@@ -89,8 +89,8 @@ $else$
 \setcounter{secnumdepth}{0}
 $endif$
 
-% Footnotes: 
-% Wait, didn't we already discuss the crisis of code in footnotes?  
+% Footnotes:
+% Wait, didn't we already discuss the crisis of code in footnotes?
 % Evidently the order of unfolding of macros required that
 % we import a package to deal with them earlier
 % and issue a command it defines now. (Or maybe that's not the reason;

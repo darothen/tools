@@ -4,6 +4,10 @@
 ;;; Main Emacs Changes
 ;;;
 
+;; Function for determining if in terminal or not
+(defun is-in-terminal()
+  (not (display-graphic-p)))
+
 ;; Disable startup screen
 (setq inhibit-startup-screen t
       initial-scratch-message nil)
@@ -92,6 +96,7 @@
     moe-theme
     monokai-theme
     org
+    org-ref
     solarized-theme
     tangotango-theme
     use-package)
@@ -101,7 +106,8 @@
 (setq package-archives
   '(;("marmalade" . "http://marmalade-repo.org/packages/")
     ("org" . "http://orgmode.org/elpa/")
-    ("melpa" . "http://melpa.milkbox.net/packages/"))
+    ;("melpa" . "http://melpa.milkbox.net/packages/")
+    ("melpa" . "http://melpa.org/packages/"))
 )
 ;; Fetch the list of available packages
 (package-initialize)
@@ -204,9 +210,32 @@
 ; Automatically remove 0:00 duration clocks
 (setq org-clock-out-remove-zero-time-clocks t)
 
+;; org-reveal
+(setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
+
+;; org-ref
+(defun load-org-ref ()
+  (require 'org-ref)
+)
+(add-hook 'org-mode-hook 'load-org-ref)
+(setq reftex-default-bibliography '("~/Dropbox_MIT/Papers/library.bib"))
+(setq org-ref-bibliography-notes "~/Dropbox_MIT/Papers/notes.org"
+      org-ref-default-bibliography '("~/Dropbox_MIT/Papers/library.bib")
+      org-ref-pdf-directory "~/Dropbox_MIT/Papers/")
+(setq bibtex-completion-bibliography "~/Dropbox_MIT/Papers/library.bib"
+      bibtex-completion-library-path "~/Dropbox_MIT/Papers/"
+      bibtex-completion-notes-path "~/Dropbox_MIT/Papers/helm-bibtex-notes")
+; open pdf with system pdf viewer (works on mac)
+(setq bibtex-completion-pdf-open-function
+  (lambda (fpath)
+    (start-process "open" "*open*" "open" fpath)))
+
+;; Pandoc export
+(with-eval-after-load 'ox
+  (require 'ox-pandoc))
 
 ;; Babel
-                                        ; Active langues
+; Active langueges
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)
@@ -229,7 +258,8 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("2305decca2d6ea63a408edd4701edf5f4f5e19312114c9d1e1d5ffe3112cde58" "e97dbbb2b1c42b8588e16523824bc0cb3a21b91eefd6502879cf5baa1fa32e10" "1e3b2c9e7e84bb886739604eae91a9afbdfb2e269936ec5dd4a9d3b7a943af7f" "70b9c3d480948a3d007978b29e31d6ab9d7e259105d558c41f8b9532c13219aa" default))))
+    ("2305decca2d6ea63a408edd4701edf5f4f5e19312114c9d1e1d5ffe3112cde58" "e97dbbb2b1c42b8588e16523824bc0cb3a21b91eefd6502879cf5baa1fa32e10" "1e3b2c9e7e84bb886739604eae91a9afbdfb2e269936ec5dd4a9d3b7a943af7f" "70b9c3d480948a3d007978b29e31d6ab9d7e259105d558c41f8b9532c13219aa" default)))
+ '(safe-local-variable-values (quote ((org-hide-emphasis-markers)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

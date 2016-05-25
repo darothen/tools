@@ -1,3 +1,14 @@
+
+# If Anaconda or miniconda is locally installed, then add it to
+# the path
+if [ -d $HOME/anaconda ]; then
+    export PATH=$HOME/anaconda/bin:$PATH
+        export QT_API=pyside
+        fi
+        if [ -d $HOME/miniconda ]; then
+            export PATH=$HOME/miniconda/bin:$PATH
+            fi
+
 # Links to Dropbox folders, use quotes when accessing (cd "$DBPER")
 export DBPER=/Users/daniel/Dropbox\ \(Personal\)/
 export DBMIT=/Users/daniel/Dropbox\ \(MIT\)/
