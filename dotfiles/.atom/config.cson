@@ -1,0 +1,79 @@
+"*":
+  "atom-beautify": {}
+  "autocomplete-python": {}
+  core:
+    automaticallyUpdate: false
+    disabledPackages: [
+      "linter-python-pep8"
+      "markdown-preview"
+      "linter-python-pyflakes"
+    ]
+    ignoredNames: [
+      ".git"
+      ".hg"
+      ".svn"
+      ".DS_Store"
+      "._*"
+      "#*"
+      "*.pyc"
+      "Thumbs.db"
+      "*.ipynb"
+      "*.nc"
+    ]
+    themes: [
+      "atom-dark-ui"
+      "atom-monokai"
+    ]
+  editor:
+    fontFamily: "Source Code Pro"
+    fontSize: 13
+    invisibles: {}
+    showInvisibles: true
+    softWrap: true
+    tabLength: 3
+    tabType: "soft"
+  "exception-reporting":
+    userId: "085506b3-d535-1c9d-741e-20c385bce7cb"
+  jshint: {}
+  linter:
+    errorPanelHeight: 22
+    lintOnFlyInterval: 500
+    showErrorPanel: false
+  "linter-chktex": {}
+  "linter-eslint": {}
+  "linter-jshint":
+    lintInlineJavaScript: true
+    lintJSXFiles: true
+  "linter-pep8":
+    ignoreErrorCodes: [
+      "E501"
+      "E226"
+    ]
+  minimap:
+    absoluteMode: true
+    displayMinimapOnLeft: true
+    plugins:
+      "git-diff": true
+      "git-diffDecorationsZIndex": 0
+  "open-unsupported-files": {}
+  "spell-check":
+    grammars: [
+      "text.tex.latex"
+      "text.plain"
+      "text.html.basic"
+      "text.markdown"
+    ]
+  "svg-preview": {}
+  "tree-view":
+    hideIgnoredNames: true
+    hideVcsIgnoredFiles: true
+    squashDirectoryNames: true
+  welcome:
+    showOnStartup: false
+".fortran.free.source":
+  editor:
+    showIndentGuide: true
+    showInvisibles: true
+".fortran.modern.source":
+  editor:
+    showIndentGuide: true

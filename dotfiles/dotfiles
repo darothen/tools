@@ -14,7 +14,8 @@ DOTFILES = {
                 "aliases", "exports", "functions", "profile", "prompt"
             ]],
     'conda': ['.condarc', ],
-    '.emacs.d': ['init.el', ]
+    '.emacs.d': ['init.el', ],
+    '.atom': ['config.cson', ],
 }
 INTERMEDIATES = ['.emacs.d', ]
 
