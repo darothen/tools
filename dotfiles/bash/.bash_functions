@@ -41,3 +41,8 @@ extract () {
    echo "'$1' is not a valid file to extract"
  fi
 }
+
+# List the targets in a given Makefile
+lsmake () {
+   make -rpn -f $1 | sed -n -e '/^$/ { n ; /^[^ .#][^ ]*:/ { s/:.*$// ; p ; } ; }'
+}
