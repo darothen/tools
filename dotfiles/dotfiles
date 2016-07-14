@@ -15,7 +15,7 @@ DOTFILES = {
             ]],
     'conda': ['.condarc', ],
     '.emacs.d': ['init.el', ],
-    '.atom': ['config.cson', ],
+    '.atom': ['config.cson', 'keymap.cson'],
 }
 INTERMEDIATES = ['.emacs.d', ]
 

@@ -19,6 +19,7 @@
       "Thumbs.db"
       "*.ipynb"
       "*.nc"
+      "__pycache__"
     ]
     themes: [
       "atom-dark-ui"
@@ -30,7 +31,8 @@
     invisibles: {}
     showInvisibles: true
     softWrap: true
-    tabLength: 3
+    softWrapAtPreferredLineLength: true
+    tabLength: 4
     tabType: "soft"
   "exception-reporting":
     userId: "085506b3-d535-1c9d-741e-20c385bce7cb"
