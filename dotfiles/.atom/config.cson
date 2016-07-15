@@ -51,6 +51,18 @@
       "E501"
       "E226"
     ]
+  "markdown-preview-plus":
+    enablePandoc: true
+    liveUpdate: false
+    pandocArguments: [
+      "--smart --filter pandoc-crossref"
+    ]
+    pandocBIBFile: "/Users/daniel/Dropbox_MIT/Papers/library.bib"
+    pandocBibliography: true
+    pandocCSLFile: "/Users/daniel/tools/pandoc/csl/american-geophysical-union.csl"
+    pandocMarkdownFlavor: "markdown+simple_tables+table_captions+yaml_metadata_block+tex_math_double_backslash"
+    pandocRemoveReferences: false
+    useGitHubStyle: true
   minimap:
     absoluteMode: true
     displayMinimapOnLeft: true

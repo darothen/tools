@@ -33,5 +33,5 @@
 
 # Markdown-folder: key-commands to emulate org-mode
 'atom-text-editor[data-grammar="source gfm"]:not([mini])':
-  'tab':       'markdown-folder:cycle'
+  'alt-tab':       'markdown-folder:cycle'
   'shift-tab': 'markdown-folder:cycleall'

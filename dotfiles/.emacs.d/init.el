@@ -267,7 +267,7 @@
     ("2305decca2d6ea63a408edd4701edf5f4f5e19312114c9d1e1d5ffe3112cde58" "e97dbbb2b1c42b8588e16523824bc0cb3a21b91eefd6502879cf5baa1fa32e10" "1e3b2c9e7e84bb886739604eae91a9afbdfb2e269936ec5dd4a9d3b7a943af7f" "70b9c3d480948a3d007978b29e31d6ab9d7e259105d558c41f8b9532c13219aa" default)))
  '(org-agenda-files
    (quote
-    ("~/org/research.org" "~/org/main.org" "~/org/cals/meetings.org" "~/org/cals/misc.org" "~/org/cals/music.org")))
+    ("~/Documents/Writing/marc_activation_manuscript/manuscript.org" "~/org/research.org" "~/org/main.org" "~/org/cals/meetings.org" "~/org/cals/misc.org" "~/org/cals/music.org")))
  '(safe-local-variable-values (quote ((org-hide-emphasis-markers)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

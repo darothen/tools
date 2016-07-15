@@ -17,7 +17,7 @@ DOTFILES = {
     '.emacs.d': ['init.el', ],
     '.atom': ['config.cson', 'keymap.cson'],
 }
-INTERMEDIATES = ['.emacs.d', ]
+INTERMEDIATES = ['.emacs.d', '.atom']
 
 MACHINES = ["mbp", "legion", "svante", "yellowstone", "newton",
             "ubuntu", ]
