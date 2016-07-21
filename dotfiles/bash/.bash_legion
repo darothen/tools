@@ -1,10 +1,13 @@
 ## Load ModuleFiles package, but don't load anything in particular.
-source /usr/share/modules/init/bash
+if [ $hostnamestr = legion ]
+then
+    source /usr/share/modules/init/bash    
+fi
 export MODULEPATH=$HOME/modulefiles:$MODULEPATH
 
-module load eaps/pgi
-module load netcdf/pgi
-module load mpich/pgi
+# module load eaps/pgi
+# module load netcdf/pgi
+# module load mpich/pgi
 # module load miniconda
 
 # Setup nbserver alias for jupyter
@@ -27,7 +30,7 @@ alias jupyter-nbserver='JUPYTER_CONFIG_DIR=~/.jupyter-nbserver jupyter notebook'
 
 ## Path to CESM/MARC code and run directories
 export CESM_SRC=$HOME/models/CESM/cesm1_2_2_marc-working
-export MARC_SRC=$HOME/models/CESM/mark
+export MARC_SRC=$HOME/models/CESM/marc
 export CESM_RUN=$HOME/workspace/CESM_runs/122-marc/
 
 ## Paths to network drives

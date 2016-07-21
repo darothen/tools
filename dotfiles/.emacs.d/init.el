@@ -125,7 +125,7 @@
 (require 'better-defaults)
 
 ;; Set default font
-(set-face-attribute 'default nil :font "Source Code Pro Bold-13")
+; (set-face-attribute 'default nil :font "Source Code Pro Bold-13")
 
 ;; Enable color theme
 ; Light background - leuven
