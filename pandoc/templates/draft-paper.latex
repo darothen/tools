@@ -24,7 +24,7 @@
 \usepackage{fullpage}
 \usepackage{amssymb,amsmath}
 \usepackage[utf8x]{inputenc}
-\usepackage[T1]{fontenc}
+%\usepackage[T1]{fontenc}
 $for(header-includes)$
 $header-includes$
 $endfor$
@@ -129,7 +129,9 @@ $body$
 $if(natbib)$
 $if(biblio-files)$
 \renewcommand\refname{References}
-\bibliography{$bibliography$}
+$for(biblio-files)$
+\bibliography{$biblio-files$}
+$endfor$
 \newpage
 $endif$
 $endif$
