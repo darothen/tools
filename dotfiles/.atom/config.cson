@@ -7,6 +7,7 @@
       "linter-python-pep8"
       "markdown-preview"
       "linter-python-pyflakes"
+      "language-gfm"
     ]
     ignoredNames: [
       ".git"
@@ -23,7 +24,7 @@
     ]
     themes: [
       "atom-dark-ui"
-      "atom-monokai"
+      "pubster-syntax"
     ]
   editor:
     fontFamily: "Source Code Pro"
@@ -78,6 +79,7 @@
       "text.markdown"
     ]
   "svg-preview": {}
+  "todo-show": {}
   "tree-view":
     hideIgnoredNames: true
     hideVcsIgnoredFiles: true
