@@ -20,7 +20,7 @@ DOTFILES = {
 INTERMEDIATES = ['.emacs.d', '.atom']
 
 MACHINES = ["mbp", "legion", "svante", "yellowstone", "newton",
-            "ubuntu", ]
+            "ubuntu", "default", ]
 
 
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
