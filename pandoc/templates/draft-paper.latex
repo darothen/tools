@@ -20,15 +20,16 @@
 %   authors - listing of name, affiliation -> listing of address, id
 %
 \documentclass[$if(fontsize)$$fontsize$,$else$12pt,$endif$$if(lang)$$lang$,$endif$$if(papersize)$$papersize$,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$if(documentclass)$$documentclass$$else$memoir$endif$}
+
 \usepackage{authblk}
 \usepackage{fullpage}
 \usepackage{amssymb,amsmath}
 \usepackage[utf8x]{inputenc}
 %\usepackage[T1]{fontenc}
-$for(header-includes)$
-$header-includes$
-$endfor$
+\usepackage{booktabs}
+
 \usepackage{graphicx}
+\usepackage{grffile}
 % Redefine \includegraphics so that, unless explicit options are
 % given, the image width will not exceed the width or the height of the page.
 % Images get their normal width if they fit onto the page, but
@@ -50,6 +51,7 @@ $endfor$
 }
 \makeatother
 \setkeys{Gin}{width=\ScaleWidthIfNeeded,height=\ScaleHeightIfNeeded,keepaspectratio}%
+
 $if(graphicspath)$
 \graphicspath{$for(graphicspath)${$graphicspath$}$endfor$}
 $endif$
@@ -81,11 +83,17 @@ $endif$
             pdfborder={0 0 0}}
 \urlstyle{same} % don't use a different (monospace) font for urls
 
+% Section numbering
 $if(numbersections)$
 \setcounter{secnumdepth}{5}
 $else$
 \setcounter{secnumdepth}{0}
 $endif$
+
+% Custom headers, specified via Pandoc
+$for(header-includes)$
+$header-includes$
+$endfor$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
