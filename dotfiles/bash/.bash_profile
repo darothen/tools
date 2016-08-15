@@ -28,14 +28,11 @@ case $TERM in
 esac
 
 date
-if [ -x /usr/games/fortune ]; then
-    /usr/games/fortune -s     # Makes our day a bit more fun.... :-)
-fi
 
 # -------------------------------------------------------------- #
 
 # Begin setting up PATH
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/texbin:$PATH
+#export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/texbin:$PATH
 
 # Detect platform
 platform='unknown'
@@ -59,7 +56,6 @@ for file in ~/.bash_{machine,aliases,exports,functions,prompt}; do
 done
 unset file
 
-
 ## Set some shell options
 # case-insensitive globbing
 shopt -s nocaseglob
@@ -69,16 +65,6 @@ shopt -s histappend
 
 # autocorrect typos in path names via 'cd'
 shopt -s cdspell
-
-## Remote Connection Aliases
-# newton (Singapore)
-export NEWTON=203.125.133.98
-export NEWTON_PORT=22003
-alias sshnewton="ssh -Y -p $NEWTON_PORT darothen@$NEWTON"
-scpnewton() {
-    echo -e "Copying $1 to $NEWTON:$2\n"
-    scp -P $NEWTON_PORT $1 darothen@$NEWTON:$2
-}
 
 # Be sure that home/bin is at front of path
 export PATH=$HOME/bin:$PATH
