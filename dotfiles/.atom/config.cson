@@ -1,6 +1,12 @@
 "*":
-  "atom-beautify": {}
+  "atom-beautify":
+    general:
+      _analyticsUserId: "307c24f6-918a-4aee-998d-c313fcdb1fe6"
   "autocomplete-python": {}
+  build:
+    notificationOnRefresh: true
+  "build-make":
+    jobs: 1
   core:
     automaticallyUpdate: false
     disabledPackages: [
@@ -8,6 +14,7 @@
       "markdown-preview"
       "linter-python-pyflakes"
       "language-gfm"
+      "linter-pep8"
     ]
     ignoredNames: [
       ".git"
@@ -66,7 +73,6 @@
     useGitHubStyle: true
   minimap:
     absoluteMode: true
-    displayMinimapOnLeft: true
     plugins:
       "git-diff": true
       "git-diffDecorationsZIndex": 0
@@ -77,6 +83,7 @@
       "text.plain"
       "text.html.basic"
       "text.markdown"
+      "text.md"
     ]
   "svg-preview": {}
   "todo-show": {}
