@@ -1,5 +1,5 @@
 
-echo "Current machine status:"
+printf "\nCurrent machine status:"
 qstat -q
 
 echo "Current running jobs:"
@@ -16,3 +16,6 @@ fi
 # Set up working directories
 export SCRATCH=/scratch
 export TMPDIR=$SCRATCH
+
+# Add new line before returning prompt
+echo 
