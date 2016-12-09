@@ -35,6 +35,7 @@
 	# Quickly get short git commit of HEAD
 	ver = describe --always --match v[0-9]*
 
+    ldiff = difftool -t latex
 [color]
 	ui = auto
 	branch = auto
@@ -52,8 +53,12 @@
 
 [diff]
 	tool = diffmerge
+[difftool]
+    prompt = false
 [difftool "diffmerge"]
 	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
+[difftool.latex]
+    cmd = git-latexdiff \"$LOCAL\" \"$REMOTE\"
 [mergetool "diffmerge"]
 	trustExitCode = true
 	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""

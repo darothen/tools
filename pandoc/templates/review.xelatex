@@ -275,6 +275,8 @@ $if(alignment)$
 \begin{$alignment$}
 $endif$
 
+\def\tightlist{}
+
 $body$
 
 $if(natbib)$

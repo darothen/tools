@@ -8,6 +8,7 @@
   "build-make":
     jobs: 1
   core:
+    allowPendingPaneItems: false
     automaticallyUpdate: false
     disabledPackages: [
       "linter-python-pep8"
@@ -15,6 +16,7 @@
       "linter-python-pyflakes"
       "language-gfm"
       "linter-pep8"
+      "minimap"
     ]
     ignoredNames: [
       ".git"
@@ -45,11 +47,27 @@
   "exception-reporting":
     userId: "085506b3-d535-1c9d-741e-20c385bce7cb"
   jshint: {}
+  "latex-plus":
+    advancedEnabled: true
+    texBin: "/usr/texbin/"
+  latexer:
+    parameters_to_search_citations_by: [
+      "title"
+      "author"
+      "citekey"
+    ]
+  latextools:
+    builderSettings: {}
+    citeAutoTrigger: false
+    citeAutocompleteFormat: "{author_short}"
+    darwin: {}
+    linux: {}
+    win32: {}
   linter:
     errorPanelHeight: 22
     lintOnFlyInterval: 500
-    showErrorPanel: false
-  "linter-chktex": {}
+  "linter-chktex":
+    executablePath: "/usr/texbin/chktex"
   "linter-eslint": {}
   "linter-jshint":
     lintInlineJavaScript: true
@@ -100,3 +118,9 @@
 ".fortran.modern.source":
   editor:
     showIndentGuide: true
+"autocomplete-bibtex":
+  bibtex: [
+    "home/daniel/Dropbox_MIT/Papers/library.bib"
+  ]
+  resultTemplate: "citep{[key]}"
+  scope: "text.tex.latex"

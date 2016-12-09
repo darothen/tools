@@ -1,1 +1,0 @@
-This is a collection of scripts that I've accumulated over time for all manner of purposes - system configuration, processing, automation, analysis, research, etc - which don't naturally fit in a particular project or have been deprecated by a more sophisticated tool or version. They should be mostly self documenting.

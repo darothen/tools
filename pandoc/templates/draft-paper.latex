@@ -90,6 +90,10 @@ $else$
 \setcounter{secnumdepth}{0}
 $endif$
 
+% For improving table layout
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
 % Custom headers, specified via Pandoc
 $for(header-includes)$
 $header-includes$
