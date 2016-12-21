@@ -4,3 +4,6 @@
 [submodule "bin/notedown_filter"]
 	path = bin/notedown_filter
 	url = https://github.com/darothen/notedown_filter
+[submodule "dotfiles"]
+	path = dotfiles
+	url = https://github.com/darothen/dotfiles.git
